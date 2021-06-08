@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+  <link rel="stylesheet" href="style.css">
+  <div class="container">
+  <div id="icetab-container">
+    <div class="icetab current-tab">FastDork</div><div class="icetab">Template</div><div class="icetab">Setting</div>
+  </div>
+  <div id="icetab-content">
+    <!-- Tab FASTDORK -->
+    <div class="tabcontent tab-active">
+      <div class="line">
+        <select class="listmod" id="select-mod">
+          <option value="0">One Domain</option>
+          <option value="1">One Dork</option>
+          <!-- <option value="2">Two List</option>-->
+        </select>
+        <select name="list" class="list listmix" id="listmixdomain" hidden>
+          <option value="0" >List Domain</option>
+        </select>
+        <input id="target" class="btw" type="text" name="scope" placeholder="example.com">
+      </div>
+      <div class="line">
+        <div class="switch">
+          <input name="radio" type="radio" value="goodork" id="goodork" checked>
+          <label for="goodork">Google</label>
+          <input name="radio" type="radio" value="gitdork" id="gitdork">
+          <label for="gitdork" class="right">Github</label>
+          <span aria-hidden="true"></span>
+        </div>
+        <select name="list" class="list" id="list-tab1">
+          <option value="0" class="listmixmod">Select list</option>
+        </select>
+      </div>
+      <div id="error" class="alert" hidden></div>
+      <div class="line">
+        <p><input type="checkbox" id="tarsav" name="savetarget"> Save</p>
+        <button id="go">OPEN <div id="nbr">0</div> TABS WITH DORKS</button>
+        <button id="limit">TO MUCH TABS (20 Tabs max)</button>
+      </div>
+    </div>
+    <!-- Tab DORK LIST -->
+    <div class="tabcontent">
+      <div class="sucessCheck" hidden></div>
+      <select name="scan" class="list" id="list-tab2" >
+        <option value="0">Select list</option>
+      </select>
+      <button id="getgooglelnk" class="btn-import">Import links from google</button>
+      <button id="getgithublnk" class="btn-import">Import links from github</button>
+      <button id="getscopefromh1" class="btn-import">Import scope from HackerOne</button>
+      <button id="getscopefrombc" class="btn-import">Import scope from Bugcrowd</button>
+      <div class="msg-error" hidden>You forget to Select List !</div>
+      <textarea name="payloadinput" id="payload-input" spellcheck="false" ></textarea>
+      <div id="nbrpayload"><div id="nbr2">0</div> Line(s)</div>
+      <button class="adapt" id="clear" title="Clean textarea">Clear</button>
+       <img src="img/link.png" class="icon" id="links" title="Extract Links from raw data">
+      <button class="adapt" id="paste" title="Paste your clipboard in textarea">Paste</button>
+      <img src="img/copy.png" class="icon" title="Copy textarea in your clipboard" id="clipboard">
+      <button id="save" class="xs" title="Save and remove duplicates">Save</button>
+    </div>
+    <!-- Tab SETTING -->
+    <div class="tabcontent">
+      <div class="info" id="info" hidden></div>
+      <div class="sucessCheck" hidden></div>
+      <p>Add list :</p>
+      <input id="listname" class="btw" type="text" name="scope" placeholder="List name" maxlength="7">
+      <button id="createlist">CREATE LIST</button>
+      <p class="delp1">Delete list : </p>
+      <select name="scan" class="list" id="listdel">
+        <option value="0">Select list</option>
+      </select>
+      <button id="deletelist">DELETE LIST</button>
+      <a id="version">v0.1</a>
+      <button id="reset">RESET</button>
+    </div>
+  </div>
+  <script src="Script/jquery-3.5.1.min.js"></script>
+  <script src="Script/FastDork.js"></script>
+</html>

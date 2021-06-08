@@ -1,0 +1,32 @@
+{
+    "manifest_version": 2,
+
+    "name": "FastDork",
+    "description": "Google and Github Dork tool",
+    "version": "0.1",
+    "author": "skvndr",
+    "icons": {
+        "16": "img/icon.png",
+        "48": "img/icon.png",
+        "128": "img/icon.png"
+    },
+
+    "background": {
+        "scripts": [
+            "Script/jquery-3.5.1.min.js",
+            "Script/FastDork.js"
+        ],
+        "persistent": false
+    },
+
+    "browser_action": {
+        "default_icon": "img/icon.png",
+        "default_popup": "FastDork.html",
+        "default_title": "FastDork"
+    },
+
+    "permissions": [
+        "activeTab",
+        "clipboardRead"
+    ]
+}
