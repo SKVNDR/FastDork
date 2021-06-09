@@ -394,6 +394,7 @@ document.addEventListener('DOMContentLoaded', function() {
             $(this).siblings("#target").hide();
             errorId.hide();
             targetTab1.css({border: "none", borderBottom: "1px solid #f90"});
+            $("#error").css("display","none");
         });
     }
 
@@ -525,10 +526,12 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function errorMsgTab1(msg){
-        errorId.text(msg).show();
+        errorId.text(msg).css("display","block");
         targetTab1.css("border", "1px solid red");
+        $("#error").css("background", "#b71c1cc9");
         hideErrorTab1();
     }
+
     function tabDork(domain, target, choice, oneDork) {
         let dmnTarget = targetTab1.val();
         let replaceTarget = target.replace('*replace*', domain);

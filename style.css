@@ -133,14 +133,18 @@ button {
 }
 
 .alert {
-    color: red;
-    display: block;
+    color: #ffffff;
     text-align: center;
-    text-decoration: underline;
     font-size: 17px;
-    /*margin-top: -7px;*/
+    top: 30%;
+    z-index: 3;
+    border-radius: 5px;
+    padding: 7px;
+    background: #b71c1cc9;
     position: fixed;
-    margin: -6% 0 0 20%;
+    left: 50%;
+    transform: translate(-50%, 0);
+    display:none;
 }
 
 .info {
@@ -149,7 +153,10 @@ button {
     text-align: center;
     text-decoration: underline;
     font-size: 17px;
-    margin: 9px 24px;
+    margin-top: 9px;
+    left: 45%;
+    width: 100%;
+    transform: translate(-50%, 0);
 }
 
 .adapt {
@@ -549,3 +556,4 @@ p {
     text-decoration: underline;
     cursor: pointer;
 }
+
