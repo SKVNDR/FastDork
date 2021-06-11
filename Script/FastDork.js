@@ -172,9 +172,9 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    function getDataFromImportURL(url,platform,data,tab,autoSave){
+    function getDataFromImportURL(url,textBtn,data,tab,autoSave){
         if (tabUrl.indexOf(url) > -1) {
-            $("#platform").text(platform);
+            $("#import").text(textBtn);
             $("#import").css("display", "inline-block");
             $("#import").prop('title', 'Auto save : ' + autoSave);
             showDorkList();
@@ -243,14 +243,15 @@ document.addEventListener('DOMContentLoaded', function() {
 
         tabUrl = tab.url;
 
-        getDataFromImportURL(urlGoogle,"Google","LNK_GOO",tab,true);
-        getDataFromImportURL("https://bugcrowd.com/","Bugcrowd","SCOPE_BC",tab,false);
-        getDataFromImportURL("https://github.com/search","Github","LNK_GIT",tab,true);
-        getDataFromImportURL("https://www.exploit-db.com/google-hacking-database","Exploit DB","DRK_GHD",tab,true);
+        getDataFromImportURL(urlGoogle,"Import links from Google","LNK_GOO",tab,true);
+        getDataFromImportURL("https://bugcrowd.com/","Import links from Bugcrowd","SCOPE_BC",tab,false);
+        getDataFromImportURL("https://github.com/search","Import links from Github","LNK_GIT",tab,true);
+        getDataFromImportURL("https://www.exploit-db.com/google-hacking-database","Import dorks from Exploit DB","DRK_GHD",tab,true);
 
         if (tabUrl.indexOf("?type=team") > -1) {
             showDorkList();
-            getDataFromImportURL("https://hackerone.com/", "HackerOne", "SCOPE_H1", tab,false);
+            getDataFromImportURL("https://hackerone.com/", "Import links from HackerOne", "SCOPE_H1", tab,false);
+
         }
     });
 

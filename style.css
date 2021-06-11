@@ -494,7 +494,7 @@ button#return {
     padding: 10px 22px;
 }
 
-#nbr, #nbr2, #platform {
+#nbr, #nbr2 {
     display: contents;
 }
 
