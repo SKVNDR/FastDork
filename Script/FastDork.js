@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', function() {
         'site:*replace* "<?php"',
         'site:*replace* inurl:redirect',
         'inurl:*replace* site:http://s3.amazonaws.com confidential OR "top secret"',
-        'intext:"*replace*" ext:(doc | pdf | xls | txt | rtf | odt | ppt | xml)'
+        'site:"*replace*" ext:(doc | pdf | xls | txt | rtf | odt | ppt | xml)'
     ];
 
     const reconPayloads = [
@@ -71,10 +71,10 @@ document.addEventListener('DOMContentLoaded', function() {
     ];
 
     const domainExample = [
-        'exemple.com',
-        'subdomain.exemple.com',
-        'dev.exemple.com',
-        'test.exemple.com'
+        'example.com',
+        'subdomain.example.com',
+        'dev.example.com',
+        'test.example.com'
     ];
 
     function tabStructure() {
@@ -105,6 +105,9 @@ document.addEventListener('DOMContentLoaded', function() {
         setTimeout(function() {
             $(".check-icon").show();
         }, 10);
+        setTimeout(function() {
+            $("#msgsuccess").text("");
+        }, 1000);
         $(".success-checkmark").delay(350).fadeOut('slow');
     }
 

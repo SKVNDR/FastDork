@@ -148,13 +148,13 @@ button {
 }
 
 .info {
-    color: green;
+    color: red;
     position: fixed;
     text-align: center;
     text-decoration: underline;
     font-size: 17px;
     margin-top: 9px;
-    left: 45%;
+    left: 50%;
     width: 100%;
     transform: translate(-50%, 0);
 }
@@ -223,6 +223,7 @@ button#return {
 
 #msgsuccess {
     text-align: center;
+    width: 100%;
 }
 
 .msg-error {
@@ -454,7 +455,7 @@ button#return {
 }
 
 .line {
-    margin: 0 0 -2px 9px;
+    margin: 0 0 -3px 10px;
 }
 
 #listname {
