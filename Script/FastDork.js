@@ -155,6 +155,7 @@ document.addEventListener('DOMContentLoaded', function() {
             listener('SCOPE_H1',request.scopeh1);
             listener('LNK_GOO',request.goo_lnk);
             listener('LNK_GIT',request.git_lnk);
+            listener('DRK_GHD',request.dork_ghd);
 
             if (request.scopebc) {
                 listener('SCOPE_BC',request.scopebc);
@@ -171,15 +172,14 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    function getDataFromImportURL(url,btn,data,tab,autoSave){
-
+    function getDataFromImportURL(url,platform,data,tab,autoSave){
         if (tabUrl.indexOf(url) > -1) {
-
-            $(btn).css("display", "inline-block");
-            $(btn).prop('title', 'Auto save : ' + autoSave);
+            $("#platform").text(platform);
+            $("#import").css("display", "inline-block");
+            $("#import").prop('title', 'Auto save : ' + autoSave);
             showDorkList();
 
-            $(btn).click(function() {
+            $("#import").click(function() {
                 const checkList = parseInt(listTab2.val());
                 if (checkList === 0) {
                     msgError.text("You forgot to select list !").show();
@@ -193,8 +193,6 @@ document.addEventListener('DOMContentLoaded', function() {
                     );
                 }
             });
-        } else {
-            $(btn).css("display", "none");
         }
     }
 
@@ -245,13 +243,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
         tabUrl = tab.url;
 
-        getDataFromImportURL(urlGoogle,"#getgooglelnk","LNK_GOO",tab,true);
-        getDataFromImportURL("https://bugcrowd.com/","#getscopefrombc","SCOPE_BC",tab,false);
-        getDataFromImportURL("https://github.com/search?","#getgithublnk","LNK_GIT",tab,true);
+        getDataFromImportURL(urlGoogle,"Google","LNK_GOO",tab,true);
+        getDataFromImportURL("https://bugcrowd.com/","Bugcrowd","SCOPE_BC",tab,false);
+        getDataFromImportURL("https://github.com/search","Github","LNK_GIT",tab,true);
+        getDataFromImportURL("https://www.exploit-db.com/google-hacking-database","Exploit DB","DRK_GHD",tab,true);
 
         if (tabUrl.indexOf("?type=team") > -1) {
             showDorkList();
-            getDataFromImportURL("https://hackerone.com/", "#getscopefromh1", "SCOPE_H1", tab,false);
+            getDataFromImportURL("https://hackerone.com/", "HackerOne", "SCOPE_H1", tab,false);
         }
     });
 
@@ -381,7 +380,7 @@ document.addEventListener('DOMContentLoaded', function() {
             $("#info").text('Empty List Name').show();
             hideErrorTab3();
         } else {
-            const msgPaste = 'Paste your list here,examples of list in our github.';
+            const msgPaste = 'Paste your list here.';
             addList("List-" + listNameId.val(), [msgPaste]);
             appendListName();
             validateAnimation();
@@ -507,10 +506,15 @@ document.addEventListener('DOMContentLoaded', function() {
         msgError.hide();
     });
 
-    $("#version").click(function() {
-        chrome.tabs.create({url:'https://github.com/SKVNDR/FastDork'})
-    });
-    
+    function openLink(id,url){
+        $(id).click(function() {
+            chrome.tabs.create({url:url})
+        });
+    }
+
+    openLink('#version','https://github.com/SKVNDR/FastDork');
+    openLink('#exploit-db','https://www.exploit-db.com/google-hacking-database');
+
     $("#save").click(function() {
         if (parseInt(listTab2.val()) === 0){
             listTab2.css('border','1px solid red');

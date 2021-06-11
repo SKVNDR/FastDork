@@ -494,7 +494,7 @@ button#return {
     padding: 10px 22px;
 }
 
-#nbr, #nbr2 {
+#nbr, #nbr2, #platform {
     display: contents;
 }
 
@@ -549,7 +549,13 @@ p {
     margin: 6px 0 0 2px;
 }
 
-#version {
+#import{
+    position: absolute;
+    width: 62%;
+    margin-top: 6px;
+}
+
+.tab-link{
     display: inline-block;
     margin: 6px 0 0 6px;
     color: #f90;
@@ -557,4 +563,3 @@ p {
     text-decoration: underline;
     cursor: pointer;
 }
-

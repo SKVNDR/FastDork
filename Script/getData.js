@@ -42,13 +42,26 @@
         document.location=document.querySelectorAll('a.next_page')[0].href;
     }
 
-    if (url.indexOf("https://github.com/search?") > -1) {
-       getLinksFromGithub();
+    function getDorkFromGHD(){
+        let dorksGHD = [...document.querySelectorAll('#exploits-table tbody td:nth-child(2) a')].map(n=>n.text);
+        dorksGHD = dorksGHD.join();
+
+        chrome.extension.sendMessage({
+            dork_ghd: dorksGHD
+        });
+
+        document.querySelector("#exploits-table_next > a").click();
     }
 
-    if (url.indexOf("https://www.google.com/search?q=") > -1) {
-        getLinksFromGoogle();
+    function detectUrl(target,func){
+        if (url.indexOf(target) > -1) {
+            func();
+        }
     }
+
+    detectUrl("https://www.exploit-db.com/google-hacking-database", getDorkFromGHD);
+    detectUrl("https://github.com/search", getLinksFromGithub);
+    detectUrl("https://www.google.com/search", getLinksFromGoogle);
 
     if (document.getElementsByClassName('bc-program-card__header').length > 0) {
         getScopeFromBugcrowd();
@@ -59,4 +72,5 @@
             getScopeFromHackerOne();
         }
     }
+
 })();

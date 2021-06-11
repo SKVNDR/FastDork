@@ -16,6 +16,7 @@
 - [Tab Template](#tab-template)
 	- [Import links from HackerOne and Bugcrowd](#import-links-from-hackerone-and-bugcrowd)
 	- [Import links from Google and Github](#import-links-from-google-and-github)
+	- [Import Dorks from Google Hacking Database](#import-dorks-from-google-hacking-database)
 	- [Copy to clipboard](#copy-to-clipboard)
 	- [Extract Links from Raw data](#extract-links-from-raw-data)
 - [Tab Setting](#tab-setting)
@@ -27,7 +28,7 @@
 - Find the ZIP file in your computer and unzip it.
 - Go back to the **chrome://extensions/** page and click on **Load unpacked extension** button and select the unzipped folder of your extension to install it.
 
-<img src="https://zupimages.net/up/21/21/qr7k.gif" alt="fastdork gif" width=400 >
+<img src="https://zupimages.net/up/21/23/42hr.gif" alt="fastdork gif" width=400 >
 
 ## Tab FastDork
 1) Select **One Domain/One Dork**
@@ -57,6 +58,10 @@ To use this functionality, go to the program page then click on the button **Imp
 Same logic, the import buttons will appear when google/github search will be visited. 
 
 The links are saved automatically after each click on import buttons (in case if captcha appears)
+ 
+### Import Dorks from Google Hacking Database
+
+You can import dorks from Exploit DB, the import button will appear after visiting the google hacking database page.
  
 ### Copy to clipboard
 To copy list textarea to your clipboard, click on this icon <img src="https://zupimages.net/up/21/15/2ww8.png" alt="icon clipboard">

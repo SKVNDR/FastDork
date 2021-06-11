@@ -42,17 +42,14 @@
     <div class="tabcontent">
       <div class="sucessCheck" hidden></div>
       <select name="scan" class="list" id="list-tab2" >
-        <option value="0">Select list</option>
+            <option value="0">Select list</option>
       </select>
-      <button id="getgooglelnk" class="btn-import">Import links from google</button>
-      <button id="getgithublnk" class="btn-import">Import links from github</button>
-      <button id="getscopefromh1" class="btn-import">Import scope from HackerOne</button>
-      <button id="getscopefrombc" class="btn-import">Import scope from Bugcrowd</button>
+      <button id="import" class="btn-import">Import links from <div id="platform"></div></button>
       <div class="msg-error" hidden>You forget to Select List !</div>
       <textarea name="payloadinput" id="payload-input" spellcheck="false" ></textarea>
       <div id="nbrpayload"><div id="nbr2">0</div> Line(s)</div>
       <button class="adapt" id="clear" title="Clean textarea">Clear</button>
-       <img src="img/link.png" class="icon" id="links" title="Extract Links from raw data">
+      <img src="img/link.png" class="icon" id="links" title="Extract Links from raw data">
       <button class="adapt" id="paste" title="Paste from clipboard">Paste</button>
       <img src="img/copy.png" class="icon" title="Copy in clipboard" id="clipboard">
       <button id="save" class="xs" title="Save and remove duplicates">Save</button>
@@ -69,7 +66,8 @@
         <option value="0">Select list</option>
       </select>
       <button id="deletelist">DELETE LIST</button>
-      <a id="version">v0.1</a>
+      <a id="version" class="tab-link">v0.1</a>
+      <a id="exploit-db" class="tab-link">Dork from Exploit DB</a>
       <button id="reset">RESET</button>
     </div>
   </div>
