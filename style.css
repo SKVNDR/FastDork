@@ -107,7 +107,7 @@ p {
     font-size: 17px;
 }
 
-.list,.listprefix,.platform,.listmod {
+.list,.listmod {
     background: transparent;
     margin-bottom: 9px;
     color: #666;
@@ -252,7 +252,6 @@ button#return {
 
 .switch:before, .switch:after {
     content: " ";
-
 }
 
 .switch:after {
@@ -491,7 +490,7 @@ button#return {
 }
 
 #go, #limit {
-    padding: 10px 22px;
+    padding: 10px 20px;
 }
 
 #nbr, #nbr2 {

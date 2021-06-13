@@ -1,76 +1,56 @@
 (function() {
 
-    var url = window.location.href;
+    const url = window.location.href;
 
-    function getScopeFromHackerOne(){
-        let h1scope = [...document.querySelectorAll('.spec-asset strong')].map(n=>n.innerText);
-        h1scope = h1scope.join();
+    function sendData(platform, type, selector, nextPage){
+        if (url.indexOf(platform) > -1) {
+            let dataVal;
 
-        chrome.extension.sendMessage({
-            scopeh1: h1scope
-        });
+            if (type){
+                dataVal = [...document.querySelectorAll(selector)].map(n=>n.href);
+            } else {
+                dataVal = [...document.querySelectorAll(selector)].map(n=>n.innerText);
+            }
+
+            dataVal = dataVal.join();
+
+            chrome.extension.sendMessage({
+                dataResult : dataVal
+            });
+
+            if (nextPage){
+                nextPage();
+            }
+        }
     }
 
-    function getScopeFromBugcrowd(){
-        let bugCrowdScope = [...document.querySelectorAll('.cc-rewards-link-table__endpoint')].map(n=>n.innerText);
-        bugCrowdScope = bugCrowdScope.join();
-
-        chrome.extension.sendMessage({
-            scopebc: bugCrowdScope
-        });
-    }
-
-    function getLinksFromGoogle(){
-        let googleLinks = [...document.querySelectorAll('div.yuRUbf>a:first-child')].map(n=>n.href);
-        googleLinks = googleLinks.join();
-
-        chrome.extension.sendMessage({
-            goo_lnk: googleLinks
-        });
-
+    function nextPageGoogle(){
         document.location=document.querySelectorAll('a#pnnext')[0].href;
     }
 
-    function getLinksFromGithub(){
-        let githubLinks = [...document.querySelectorAll('div.f4.text-normal a')].map(n=>n.href);
-        githubLinks = githubLinks.join();
-
-        chrome.extension.sendMessage({
-            git_lnk: githubLinks
-        });
-
-        document.location=document.querySelectorAll('a.next_page')[0].href;
-    }
-
-    function getDorkFromGHD(){
-        let dorksGHD = [...document.querySelectorAll('#exploits-table tbody td:nth-child(2) a')].map(n=>n.text);
-        dorksGHD = dorksGHD.join();
-
-        chrome.extension.sendMessage({
-            dork_ghd: dorksGHD
-        });
-
+    function nextPageExploitDB(){
         document.querySelector("#exploits-table_next > a").click();
     }
 
-    function detectUrl(target,func){
-        if (url.indexOf(target) > -1) {
-            func();
-        }
+    function nextPageGithub() {
+        document.location = document.querySelectorAll('a.next_page')[0].href;
     }
 
-    detectUrl("https://www.exploit-db.com/google-hacking-database", getDorkFromGHD);
-    detectUrl("https://github.com/search", getLinksFromGithub);
-    detectUrl("https://www.google.com/search", getLinksFromGoogle);
+    //get Github Links
+    sendData("https://github.com/search",true, "div.f4.text-normal a", nextPageGithub);
 
+    //get HackerOne links
+    sendData("https://hackerone.com/",false,".spec-asset strong");
+
+    //get Exploit DB links
+    sendData("https://www.exploit-db.com/google-hacking-database",false,"#exploits-table tbody td:nth-child(2) a", nextPageExploitDB);
+
+    //get Google links
+    sendData("https://www.google.com/search",true,"div.yuRUbf>a:first-child", nextPageGoogle);
+
+    //get Bugcrowd links
     if (document.getElementsByClassName('bc-program-card__header').length > 0) {
-        getScopeFromBugcrowd();
-    }
-
-    if (url.indexOf("https://hackerone.com/") > -1) {
-        if (url.indexOf("?type=team") > -1) {
-            getScopeFromHackerOne();
-        }
+        sendData("https://bugcrowd.com/",false,".cc-rewards-link-table__endpoint");
     }
 
 })();

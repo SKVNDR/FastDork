@@ -78,8 +78,8 @@ document.addEventListener('DOMContentLoaded', function() {
     ];
 
     function tabStructure() {
-        let tabs = document.getElementById('icetab-container').children;
-        let tabContents = document.getElementById('icetab-content').children;
+        const tabs = document.getElementById('icetab-container').children;
+        const tabContents = document.getElementById('icetab-content').children;
 
         let myFunction = function() {
             let tabChange = this.mynum;
@@ -113,7 +113,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function choiceTab() {
         $('.switch label').on('click', function() {
-            let indicator = $(this).parent('.switch').find('span');
+            const indicator = $(this).parent('.switch').find('span');
             if ($(this).hasClass('right')) {
                 $(indicator).addClass('right');
             } else {
@@ -151,17 +151,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     chrome.extension.onMessage.addListener(function(request) {
-
-            listener('SCOPE_H1',request.scopeh1);
-            listener('LNK_GOO',request.goo_lnk);
-            listener('LNK_GIT',request.git_lnk);
-            listener('DRK_GHD',request.dork_ghd);
-
-            if (request.scopebc) {
-                listener('SCOPE_BC',request.scopebc);
-            } else {
-                localStorage.setItem('SCOPE_BC','Go to Bugcrowd program page then click on Import button');
-            }
+        listener('DATA_RESULT',request.dataResult);
     });
 
     function validateBtn(div, reset) {
@@ -172,7 +162,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    function getDataFromImportURL(url,textBtn,data,tab,autoSave){
+    function getDataFromImportURL(url,textBtn,tab,autoSave){
         if (tabUrl.indexOf(url) > -1) {
             $("#import").text(textBtn);
             $("#import").css("display", "inline-block");
@@ -188,7 +178,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     chrome.tabs.executeScript(tab.ib,{
                             file: 'Script/getData.js'
                         },function() {
-                            getDataFromLocalStorage(data,autoSave);
+                            getDataFromLocalStorage(autoSave);
                         }
                     );
                 }
@@ -196,21 +186,23 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    function getDataFromLocalStorage(item,autoSave){
-        const dataLocalStorage = localStorage.getItem(item);
+    function getDataFromLocalStorage(autoSave){
+        const dataLocalStorage = localStorage.getItem("DATA_RESULT");
         if (dataLocalStorage === null){ //quick fix
             setTimeout(function () {
-                const lastItem = localStorage.getItem(item);
-                fillListInput(lastItem,autoSave,item);
+                const lastItem = localStorage.getItem("DATA_RESULT");
+                fillListInput(lastItem,autoSave);
             }, 1000);
         } else {
-            fillListInput(dataLocalStorage,autoSave,item);
+            fillListInput(dataLocalStorage,autoSave);
         }
     }
 
-    function fillListInput(data,autoSave,item){
+    function fillListInput(data,autoSave){
         payloadInput.val(payloadInput.val() + data.replaceAll(',', '\n'));
         payloadInput.val(payloadInput.val() + "\n");
+
+        removeDuplicate();
 
         if (autoSave){
             saveToArray();
@@ -220,7 +212,7 @@ document.addEventListener('DOMContentLoaded', function() {
         getNumberPayload();
         const resultMinus = parseInt(nbrTab2.text()) - 1;
         nbrTab2.text(resultMinus);
-        localStorage.removeItem(item);
+        localStorage.removeItem("DATA_RESULT");
     }
 
     function limitNbrTab(nbr){
@@ -243,16 +235,16 @@ document.addEventListener('DOMContentLoaded', function() {
 
         tabUrl = tab.url;
 
-        getDataFromImportURL(urlGoogle,"Import links from Google","LNK_GOO",tab,true);
-        getDataFromImportURL("https://bugcrowd.com/","Import links from Bugcrowd","SCOPE_BC",tab,false);
-        getDataFromImportURL("https://github.com/search","Import links from Github","LNK_GIT",tab,true);
-        getDataFromImportURL("https://www.exploit-db.com/google-hacking-database","Import dorks from Exploit DB","DRK_GHD",tab,true);
+        getDataFromImportURL(urlGoogle,"Import links from Google",tab,true);
+        getDataFromImportURL("https://bugcrowd.com/","Import links from Bugcrowd",tab,false);
+        getDataFromImportURL("https://github.com/search","Import links from Github",tab,true);
+        getDataFromImportURL("https://www.exploit-db.com/google-hacking-database","Import dorks from Exploit DB",tab,true);
 
         if (tabUrl.indexOf("?type=team") > -1) {
             showDorkList();
-            getDataFromImportURL("https://hackerone.com/", "Import links from HackerOne", "SCOPE_H1", tab,false);
-
+            getDataFromImportURL("https://hackerone.com/", "Import links from HackerOne", tab,false);
         }
+
     });
 
     payloadInput.focusout(function () {
@@ -305,12 +297,6 @@ document.addEventListener('DOMContentLoaded', function() {
         exampleBDD();
     }
 
-    const maxLength = 7;
-    listNameId.keyup(function() {
-        let textLen = maxLength - $(this).val().length;
-        $('#rchars').text(textLen);
-    });
-
     function optionSave() {
 
         const gooChecked = $('#goodork').is(':checked');
@@ -333,8 +319,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         if (!saveOption.GooGit) {
             $("#gitdork").prop("checked", true);
-            let switch2 = $('.switch').find('span');
-            $(switch2).addClass('right');
+            $($('.switch').find('span')).addClass('right');
         }
 
         targetTab1.val(saveOption.Target);
@@ -345,7 +330,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function checkSaveBtn() {
-        let saveTarget = JSON.parse(localStorage.getItem("target-1"));
+        const saveTarget = JSON.parse(localStorage.getItem("target-1"));
 
         if (saveTarget === 1) {
             $("#tarsav").prop("checked", true);
@@ -382,7 +367,7 @@ document.addEventListener('DOMContentLoaded', function() {
             hideErrorTab3();
         } else {
             const msgPaste = 'Paste your list here.';
-            addList("List-" + listNameId.val(), [msgPaste]);
+            addList("List-" + listNameId.val().toLowerCase(), [msgPaste]);
             appendListName();
             validateAnimation();
         }
@@ -409,7 +394,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function getContentFromClipboard() {
-        let result = '';
+        let result;
         payloadInput.value = '';
         payloadInput.select();
         if (document.execCommand('paste')) {
@@ -450,15 +435,14 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     $("#deletelist").click(function() {
-        let valListDel = parseInt($("#listdel").val());
+        const valListDel = parseInt($("#listdel").val());
         if (valListDel === 0) {
             $('#info').show().text('Choose list');
             $("#listdel").change(function() {
                 $('#info').hide();
             });
         } else {
-            let selectListDel = $("#listdel option:selected").text();
-            deleteList("List-" + selectListDel);
+            deleteList("List-" + $("#listdel option:selected").text());
             validateAnimation();
         }
     });
@@ -559,9 +543,9 @@ document.addEventListener('DOMContentLoaded', function() {
                     errorMsgTab1('You forgot to add *replace*');
                 }
             } else {
-                // Google -> one domain
+                // Google one domain
                 if (dmnTarget.indexOf("*replace*") >= 0) {
-                    errorMsgTab1('Remove *replace* & select list with strings');
+                    errorMsgTab1('Remove *replace* and select list with strings');
                 } else {
                     chrome.tabs.create({
                         url: urlGoogle + encodeURIComponent(replaceTarget) + '&filter=0'
@@ -569,9 +553,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             }
         } else {
+            // github dork
             if (oneDork) {
                 dmnTarget = targetTab1.val();
                 if (dmnTarget.indexOf("*replace*") >= 0) {
+                    // github one dork
                     replaceTarget = dmnTarget.replace('*replace*', target);
                     chrome.tabs.create({
                         url: urlGithub + encodeURIComponent(replaceTarget) + '&type=Code'
@@ -580,8 +566,9 @@ document.addEventListener('DOMContentLoaded', function() {
                     errorMsgTab1('You forgot to add *replace*');
                 }
             } else {
+                // github one domain
                 if (dmnTarget.indexOf("*replace*") >= 0) {
-                    errorMsgTab1('Remove *replace* & select list with strings');
+                    errorMsgTab1('Remove *replace* and select list with strings');
                 } else {
                     chrome.tabs.create({
                         url: urlGithub + encodeURIComponent(replaceTarget) + '&type=Code'
@@ -593,7 +580,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function payloadDork(domain, listName, choice, oneDork) {
         const listNameValTab1 = 'List-' + $( "#list-tab1 option:selected" ).text();
-        let storedNames = JSON.parse(localStorage.getItem(listNameValTab1));
+        const storedNames = JSON.parse(localStorage.getItem(listNameValTab1));
+
         $.each(storedNames, function(index, value) {
             tabDork(domain, value, choice, oneDork);
         });
@@ -613,7 +601,7 @@ document.addEventListener('DOMContentLoaded', function() {
         msgError.hide();
         listTab2.css('border','1px solid #666');
         $("#addpayload").css("margin-top", "5px");
-        let listDorkAdd = parseInt(listTab2.val());
+        const listDorkAdd = parseInt(listTab2.val());
         if (listDorkAdd === 0){
             clearPayloadInput();
         } else {
@@ -625,11 +613,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function copyToClipBoard() {
         try {
-            let txt = payloadInput.val();
-            let $temp = $("<textarea>");
+            const txt = payloadInput.val();
+            const $temp = $("<textarea>");
             $("body").append($temp);
             $temp.val(txt).select();
-            let retVal = document.execCommand("copy");
+            const retVal = document.execCommand("copy");
             console.log('Copy to clipboard returns: ' + retVal);
             $temp.remove();
         } catch (err) {
@@ -686,7 +674,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 payloadDork(dmnTarget, list, $('#goodork').is(':checked'), selMod);
             }
         } else {
-            errorId.text('Target domain not set !').show();
+            errorId.text('Empty value !').show();
             targetTab1.css("border", "1px solid red");
             hideErrorTab1();
         }
