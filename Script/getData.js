@@ -36,17 +36,20 @@
         document.location = document.querySelectorAll('a.next_page')[0].href;
     }
 
-    //get Github Links
+    //get Github links
     sendData("https://github.com/search",true, "div.f4.text-normal a", nextPageGithub);
 
     //get HackerOne links
     sendData("https://hackerone.com/",false,".spec-asset strong");
 
-    //get Exploit DB links
+    //get Exploit DB dorks
     sendData("https://www.exploit-db.com/google-hacking-database",false,"#exploits-table tbody td:nth-child(2) a", nextPageExploitDB);
 
     //get Google links
     sendData("https://www.google.com/search",true,"div.yuRUbf>a:first-child", nextPageGoogle);
+
+    //get Intigriti links
+    sendData("https://app.intigriti.com/researcher/programs/",false,".domain");
 
     //get Bugcrowd links
     if (document.getElementsByClassName('bc-program-card__header').length > 0) {
@@ -54,3 +57,5 @@
     }
 
 })();
+
+

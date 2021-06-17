@@ -7,26 +7,26 @@
 <h3 align="center">FastDork v0.1</h3>
 <p align="center">
     This chrome extension allows you to create lists of Google and Github dork to open multiple tabs with one click,<br/>
-    import links from HackerOne/Bugcrowd and extract links from raw data.
+    import links from HackerOne/Bugcrowd/Intigriti and extract links from raw data.
 </p>
 
 ## Table of contents
 - [Installation](#installation)
 - [Tab FastDork](#tab-fastdork)
 - [Tab Template](#tab-template)
-	- [Import links from HackerOne and Bugcrowd](#import-links-from-hackerone-and-bugcrowd)
+	- [Import links from HackerOne, Bugcrowd and Intigriti](#import-links-from-hackerone-bugcrowd-and-intigriti)
 	- [Import links from Google and Github](#import-links-from-google-and-github)
 	- [Import Dorks from Google Hacking Database](#import-dorks-from-google-hacking-database)
 	- [Copy to clipboard](#copy-to-clipboard)
 	- [Extract Links from Raw data](#extract-links-from-raw-data)
 - [Tab Setting](#tab-setting)
+- [Error](#error)
 - [Copyright and license](#copyright-and-license)
 
 ## Installation
-- Download the zip of this extension.
+- `git clone https://github.com/SKVNDR/FastDork.git`
 - Go to **chrome://extensions/** and check the box for **Developer mode** in the top right corner.
-- Find the ZIP file in your computer and unzip it.
-- Go back to the **chrome://extensions/** page and click on **Load unpacked extension** button and select the unzipped folder of your extension to install it.
+- Go back to the **chrome://extensions/** page and click on **Load unpacked extension** button and select the FastDork folder.Go back to the **chrome://extensions/** page and click on **Load unpacked extension** button and select the FastDork folder.
 
 <img src="https://zupimages.net/up/21/23/42hr.gif" alt="fastdork gif" width=400 >
 
@@ -39,19 +39,10 @@
 4) Save (you can save the parameter of this tab)
 5) Open dork's button
 
-:warning: **Error messages :** 
-- Error: Remove **\*replace\*** and select list with strings
-
-If you choose **One Domain**, remove the string **\*replace\*** and replace it by one domain name. (Example : test.com)
-
-- Error: You forgot to add **\*replace\***
-
-If you choose **One Dork** you need to add the string **\*replace\*** in the field and then select the list with domains.
-
 ## Tab Template
-### Import links from HackerOne and Bugcrowd
+### Import links from HackerOne, Bugcrowd and Intigriti
 
-To use this functionality, go to the program page then click on the button **Import links from HackerOne/Bugcrowd**.
+To use this functionality, go to the program page then click on the button **Import links from HackerOne/Bugcrowd/Intigriti**.
 
 ### Import links from Google and Github
 
@@ -72,6 +63,17 @@ To extract links, paste raw data in list textarea then click on this icon. <img 
 ## Tab Setting
 
 In this tab you can Add or Delete list, you can also Reset the extension data.
+
+## Error
+
+:warning: **Error messages :** 
+- Error: Remove **\*replace\*** and select list with strings
+
+If you choose **One Domain**, remove the string **\*replace\*** and replace it by one domain name. (Example : test.com)
+
+- Error: You forgot to add **\*replace\***
+
+If you choose **One Dork** you need to add the string **\*replace\*** in the field and then select the list with domains.
 
 ## Copyright and license
 

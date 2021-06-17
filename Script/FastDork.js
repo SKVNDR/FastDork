@@ -239,6 +239,7 @@ document.addEventListener('DOMContentLoaded', function() {
         getDataFromImportURL("https://bugcrowd.com/","Import links from Bugcrowd",tab,false);
         getDataFromImportURL("https://github.com/search","Import links from Github",tab,true);
         getDataFromImportURL("https://www.exploit-db.com/google-hacking-database","Import dorks from Exploit DB",tab,true);
+        getDataFromImportURL("https://app.intigriti.com/researcher/programs/","Import links from Intigriti",tab,false);
 
         if (tabUrl.indexOf("?type=team") > -1) {
             showDorkList();
