@@ -6,19 +6,19 @@
         if (url.indexOf(platform) > -1) {
             let dataVal;
 
-            if (type){
-                dataVal = [...document.querySelectorAll(selector)].map(n=>n.href);
+            if (type) {
+                dataVal = [...document.querySelectorAll(selector)].map(n => n.href);
             } else {
-                dataVal = [...document.querySelectorAll(selector)].map(n=>n.innerText);
+                dataVal = [...document.querySelectorAll(selector)].map(n => n.innerText);
             }
 
             dataVal = dataVal.join();
 
             chrome.extension.sendMessage({
-                dataResult : dataVal
+                dataResult: dataVal
             });
 
-            if (nextPage){
+            if (nextPage) {
                 nextPage();
             }
         }
@@ -49,7 +49,7 @@
     sendData("https://www.google.com/search",true,"div.yuRUbf>a:first-child", nextPageGoogle);
 
     //get Intigriti links
-    sendData("https://app.intigriti.com/researcher/programs/",false,".domain");
+    sendData("https://app.intigriti.com/", false, ".domain");
 
     //get Bugcrowd links
     if (document.getElementsByClassName('bc-program-card__header').length > 0) {

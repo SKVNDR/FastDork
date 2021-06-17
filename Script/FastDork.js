@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const targetTab1 = $('#target');
     const listNameId = $('#listname');
     const selectModTab1 = $('#select-mod');
+    const importBtn = $("#import");
     const urlGoogle = 'https://www.google.com/search?q=';
     const urlGithub = 'https://github.com/search?q=';
 
@@ -164,12 +165,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function getDataFromImportURL(url,textBtn,tab,autoSave){
         if (tabUrl.indexOf(url) > -1) {
-            $("#import").text(textBtn);
-            $("#import").css("display", "inline-block");
-            $("#import").prop('title', 'Auto save : ' + autoSave);
+            importBtn.text(textBtn);
+            importBtn.css("display", "inline-block");
+            importBtn.prop('title', 'Auto save : ' + autoSave);
             showDorkList();
 
-            $("#import").click(function() {
+            importBtn.click(function() {
                 const checkList = parseInt(listTab2.val());
                 if (checkList === 0) {
                     msgError.text("You forgot to select list !").show();
@@ -239,7 +240,10 @@ document.addEventListener('DOMContentLoaded', function() {
         getDataFromImportURL("https://bugcrowd.com/","Import links from Bugcrowd",tab,false);
         getDataFromImportURL("https://github.com/search","Import links from Github",tab,true);
         getDataFromImportURL("https://www.exploit-db.com/google-hacking-database","Import dorks from Exploit DB",tab,true);
-        getDataFromImportURL("https://app.intigriti.com/researcher/programs/","Import links from Intigriti",tab,false);
+
+        if (tabUrl.indexOf("programs") > -1) {
+            getDataFromImportURL("https://app.intigriti.com/", "Import links from Intigriti", tab, false);
+        }
 
         if (tabUrl.indexOf("?type=team") > -1) {
             showDorkList();
