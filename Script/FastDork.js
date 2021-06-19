@@ -11,7 +11,9 @@ document.addEventListener('DOMContentLoaded', function() {
     const targetTab1 = $('#target');
     const listNameId = $('#listname');
     const selectModTab1 = $('#select-mod');
-    const importBtn = $("#import");
+    const importBtn = $('#import');
+    const allList = $('.list');
+    const listDel = $('#listdel');
     const urlGoogle = 'https://www.google.com/search?q=';
     const urlGithub = 'https://github.com/search?q=';
 
@@ -163,14 +165,18 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    function getDataFromImportURL(url,textBtn,tab,autoSave){
+    function getDataFromImportURL(url,textBtn,tab,autoSave,key){
         if (tabUrl.indexOf(url) > -1) {
+
+            if (key){changeSelectTab2(key);}
+
             importBtn.text(textBtn);
             importBtn.css("display", "inline-block");
             importBtn.prop('title', 'Auto save : ' + autoSave);
             showDorkList();
 
             importBtn.click(function() {
+                if (key){saveSelectTab2(key);}
                 const checkList = parseInt(listTab2.val());
                 if (checkList === 0) {
                     msgError.text("You forgot to select list !").show();
@@ -226,7 +232,24 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-   function removeDuplicate(){
+    function changeSelectTab2(key){
+        const listTab2Mem = localStorage.getItem("tab2Save-" + key);
+        if (listTab2Mem != null) {
+           // listTab2.val(listTab2Mem).trigger('change');
+            $("#list-tab2 option:contains("+listTab2Mem+")").attr('selected', 'selected').trigger('change');
+        }
+    }
+
+    function saveSelectTab2(key){
+        //localStorage.setItem("tab2Save-" + key, listTab2.val());
+        localStorage.setItem("tab2Save-" + key, $( "#list-tab2 option:selected" ).text());
+    }
+
+    function resetListVal(){
+        allList.val(0).trigger('change');
+    }
+
+    function removeDuplicate(){
        const data = payloadInput.val();
        const result = data.split(/\n/g).filter((word, i, arr) => arr.indexOf(word) === i);
        payloadInput.val(result.join('\n'));
@@ -236,9 +259,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
         tabUrl = tab.url;
 
-        getDataFromImportURL(urlGoogle,"Import links from Google",tab,true);
+        getDataFromImportURL(urlGoogle,"Import links from Google",tab,true,"goo");
         getDataFromImportURL("https://bugcrowd.com/","Import links from Bugcrowd",tab,false);
-        getDataFromImportURL("https://github.com/search","Import links from Github",tab,true);
+        getDataFromImportURL("https://github.com/search","Import links from Github",tab,true,"git");
         getDataFromImportURL("https://www.exploit-db.com/google-hacking-database","Import dorks from Exploit DB",tab,true);
 
         if (tabUrl.indexOf("programs") > -1) {
@@ -282,8 +305,24 @@ document.addEventListener('DOMContentLoaded', function() {
         validateBtn("#addpayload", false);
     });
 
+    function checkListName(){
+        const checkRegex = /^[a-zA-Z0-9\-]*$/;
+        if(listNameId.val().match(checkRegex)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     function addList(listName, payload) {
-        localStorage.setItem(listName.replace(/(<([^>]+)>)/ig,""), JSON.stringify(payload));
+        checkListName();
+        if (checkListName() === true){
+            localStorage.setItem(listName, JSON.stringify(payload));
+            validateAnimation();
+        } else {
+            $("#info").text('Error, remove special characters.').show();
+            hideErrorTab3();
+        }
     }
 
     function exampleBDD() {
@@ -306,7 +345,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
         const gooChecked = $('#goodork').is(':checked');
         const saveTar = targetTab1.val();
-        const listVal1 = listTab1.val();
+        //const listVal1 = listTab1.val();
+        const listVal1 = $( "#list-tab1 option:selected" ).text();
         const selectMod = selectModTab1.val();
 
         let saveOption = {};
@@ -328,7 +368,8 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         targetTab1.val(saveOption.Target);
-        listTab1.val(saveOption.List);
+        //listTab1.val(saveOption.List);
+        $("#list-tab1 option:contains("+saveOption.List+")").attr('selected', 'selected');
         selectModTab1.val(saveOption.ModeV);
         nbrList($("#list-tab1 option:selected").text());
         limitNbrTab( $("#nbr").text());
@@ -355,31 +396,31 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    function acceptOnlyChrAndNbr() {
+    function sliceChrAndNbr() {
             listNameId.keyup(function() {
             let n = $(this).val();
-            if ( n.match("^[a-zA-Z0-9 ]*$") == null ) {
+            if ( n.match("^[a-zA-Z0-9\-]*$") == null ) {
                 $(this).val(n.slice(0,-1));
             }
         });
     }
 
-    acceptOnlyChrAndNbr();
+    sliceChrAndNbr();
 
     function createList() {
         if(!listNameId.val()){
             $("#info").text('Empty List Name').show();
             hideErrorTab3();
         } else {
-            const msgPaste = 'Paste your list here.';
-            addList("List-" + listNameId.val().toLowerCase(), [msgPaste]);
+            addList("List-" + listNameId.val().toLowerCase(), '');
             appendListName();
-            validateAnimation();
+
         }
     }
 
     $("#createlist").click(function() {
         createList();
+        resetListVal();
     });
 
     function hideErrorTab1(){
@@ -437,13 +478,14 @@ document.addEventListener('DOMContentLoaded', function() {
     function deleteList(listName) {
         window.localStorage.removeItem(listName);
         appendListName();
+        resetListVal();
     }
 
     $("#deletelist").click(function() {
-        const valListDel = parseInt($("#listdel").val());
+        const valListDel = parseInt(listDel.val());
         if (valListDel === 0) {
             $('#info').show().text('Choose list');
-            $("#listdel").change(function() {
+            listDel.change(function() {
                 $('#info').hide();
             });
         } else {
@@ -459,7 +501,7 @@ document.addEventListener('DOMContentLoaded', function() {
             if (key.indexOf("List-") >= 0) {
                 x++;
                 key = key.replace('List-', '');
-                $(".list").append('<option class="addopt" value=' + x + '>' + key + '</option>');
+                allList.append('<option class="addopt" value=' + x + '>' + key + '</option>');
             }
         }
         saveList();
@@ -474,7 +516,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     appendListName();
     checkSaveBtn();
-    //skvndr
+
     function getListName() {
         let listNameVal;
         listNameVal = 'List-' + $( "#list-tab2 option:selected" ).text();

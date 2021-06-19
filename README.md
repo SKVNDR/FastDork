@@ -1,13 +1,11 @@
 <p align="center">
-     <a href="https://github.com/SKVNDR/FastDork/archive/refs/tags/v0.1.zip">
        <img src="https://zupimages.net/up/21/15/h8zs.png" alt="Logo" width=72 height=72>
-     </a>
 </p>
 
 <h3 align="center">FastDork v0.1</h3>
 <p align="center">
     This chrome extension allows you to create lists of Google and Github dork to open multiple tabs with one click,<br/>
-    import links from HackerOne/Bugcrowd/Intigriti and extract links from raw data.
+    import "scope/out of scope" from HackerOne/Bugcrowd/Intigriti and extract links from raw data.
 </p>
 
 ## Table of contents
@@ -26,7 +24,7 @@
 ## Installation
 - `git clone https://github.com/SKVNDR/FastDork.git`
 - Go to **chrome://extensions/** and check the box for **Developer mode** in the top right corner.
-- Go back to the **chrome://extensions/** page and click on **Load unpacked extension** button and select the FastDork folder.Go back to the **chrome://extensions/** page and click on **Load unpacked extension** button and select the FastDork folder.
+- Go back to the **chrome://extensions/** page and click on **Load unpacked extension** button and select the FastDork folder.
 
 <img src="https://zupimages.net/up/21/23/42hr.gif" alt="fastdork gif" width=400 >
 
