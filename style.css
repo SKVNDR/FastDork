@@ -277,6 +277,8 @@ button#return {
 .switch input[type="radio"]:checked+label {
     color: #ff9900;
     font-weight: bold;
+    background: #fff;
+    border-radius: 5px;
 }
 
 .switch span {
