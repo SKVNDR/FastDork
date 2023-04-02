@@ -1,5 +1,5 @@
 <p align="center">
-       <img src="https://zupimages.net/up/21/15/h8zs.png" alt="Logo" width=72 height=72>
+       <img src="https://raw.githubusercontent.com/SKVNDR/FastDork/master/img/icon.png" alt="Logo" width=72 height=72>
 </p>
 
 <h3 align="center">FastDork v0.1</h3>
@@ -53,10 +53,10 @@ The links are saved automatically after each click on import buttons (in case if
 You can import dorks from Exploit DB, the import button will appear after visiting the google hacking database page.
  
 ### Copy to clipboard
-To copy list textarea to your clipboard, click on this icon <img src="https://zupimages.net/up/21/15/2ww8.png" alt="icon clipboard">
+To copy list textarea to your clipboard, click on this icon <img src="https://github.com/SKVNDR/FastDork/blob/master/img/copy.png?raw=true" alt="icon clipboard">
 
 ### Extract Links from Raw data
-To extract links, paste raw data in list textarea then click on this icon. <img src="https://zupimages.net/up/21/21/0z4r.png" alt="icon clipboard">
+To extract links, paste raw data in list textarea then click on this icon. <img src="https://github.com/SKVNDR/FastDork/blob/master/img/link.png?raw=true" alt="icon clipboard">
 
 ## Tab Setting
 
