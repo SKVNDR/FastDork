@@ -33,11 +33,22 @@
     }
 
     function nextPageGithub() {
-        document.location = document.querySelectorAll('a.next_page')[0].href;
+        //I got a 404 error when using .click(), but it still works via the URL..
+        let currentURL = window.location.href;
+        let pValue = new URLSearchParams(window.location.search).get('p');
+        pValue = pValue ? parseInt(pValue) + 1 : 2;
+        let newURL = new URL(currentURL);
+        newURL.searchParams.set('p', pValue);
+        window.location.href = newURL.toString();
+    }
+
+    function multiSelector(){
+        let gitParam = new URLSearchParams(window.location.search).get('type') === 'code' ? '.search-title a:nth-of-type(2)' : '.search-title a';
+        return gitParam;
     }
 
     //get Github links
-    sendData("https://github.com/search",true, "div.f4.text-normal a", nextPageGithub);
+    sendData("https://github.com/search",true, multiSelector(), nextPageGithub);
 
     //get HackerOne links
     sendData("https://hackerone.com/",false,".spec-asset strong");
