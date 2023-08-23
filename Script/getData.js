@@ -33,13 +33,10 @@
     }
 
     function nextPageGithub() {
-        //I got a 404 error when using .click(), but it still works via the URL..
-        let currentURL = window.location.href;
-        let pValue = new URLSearchParams(window.location.search).get('p');
-        pValue = pValue ? parseInt(pValue) + 1 : 2;
-        let newURL = new URL(currentURL);
-        newURL.searchParams.set('p', pValue);
-        window.location.href = newURL.toString();
+        let hrefVal = document.querySelector('a[rel="next"]').getAttribute('href');
+        let newURL = new URL(window.location.href);
+        newURL.searchParams.set('p', hrefVal.substring(1));
+        document.location = newURL.toString();
     }
 
     function multiSelector(){
